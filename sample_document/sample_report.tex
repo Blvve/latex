@@ -1,0 +1,136 @@
+% TODO look at the comments about the headers. Also maybe make the new chapter a bit less dramatic.
+
+\documentclass[twoside]{report}
+
+
+%%%%% SOME PACKAGES %%%%%
+\usepackage{enumitem} % Useful options for itemize and customizing lists (e.g. 'noitemsep' or 'align=...')
+\usepackage[hidelinks]{hyperref} % Include links
+\usepackage{blindtext} % Lorem ipsum shit via \blindtext
+
+
+%%%%% FONT %%%%%
+\usepackage[T1]{fontenc} % Set font (output) encoding for tildes, etc.
+\renewcommand{\familydefault}{\rmdefault} % Set default font type: \rmdefault for roman (default) and \sfdefault for sans-serif
+
+
+%%%%% PAGE LAYOUT %%%%%
+\usepackage[a4paper]{geometry} % Set page size. May not work as expected without pdflatex.
+% \usepackage[paperwidth=441pt, paperheight=666pt]{geometry} % Good size for tablets according to wikibooks.
+
+
+%%%%% HEADERS/FOOTERS %%%%%
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[LE, RO]{\thepage}
+\fancyhead[RE]{\leftmark}
+\fancyhead[LO]{\rightmark}
+% This is currently kinda broken. I need to figure out how to force evens to be on the left. Maybe by setting some roman-numeral-numbered pages around the abstract and toc. Maybe also force chapers to start on a given side or whatever.
+
+
+%%%%% SPANISH %%%%%
+% \def\spanishoptions{spain}
+% \usepackage[spanish]{babel}
+
+
+%%%%% MATH/THEOREMS %%%%%
+\usepackage[theorems]{tcolorbox} % For colored theorems. Also loads amsmath
+
+\tcbset{
+	thmstyle/.style={fonttitle=\bfseries\upshape, fontupper=\slshape, 
+		colback=red!10!white, colframe=red!75!black}, % options for theorems
+	defstyle/.style={fonttitle=\bfseries,
+		arc=0mm, colback=blue!5!white, colframe=blue!75!black} % options for definitions
+}
+
+% \newtcbtheorem
+% 	[] % init options
+% 	{} % name
+% 	{} % display name
+% 	{} % options
+% 	{} % prefix
+
+\newtcbtheorem
+	[number within=chapter] % init options
+	{theorem} % name
+	{Theorem} % display name
+	{thmstyle} % options
+	{th} % prefix
+
+\newtcbtheorem
+	[use counter from=theorem] % init options
+	{lemma} % name
+	{Lemma} % display name
+	{thmstyle} % options
+	{lm} % prefix
+
+\newtcbtheorem
+	[use counter from=theorem] % init options
+	{proposition} % name
+	{Proposition} % display name
+	{thmstyle} % options
+	{prop} % prefix
+
+\newtcbtheorem
+	[use counter from=theorem] % init options
+	{corollary} % name
+	{Corollary} % display name
+	{thmstyle} % options
+	{cor} % prefix
+
+\newtcbtheorem
+	[use counter from=theorem] % init options
+	{definition} % name
+	{Definition} % display name
+	{defstyle} % options
+	{def} % prefix
+
+
+
+
+%%%%% DOCUMENT %%%%%
+\begin{document}
+
+%%%%% TOP MATTER %%%%%
+\pagenumbering{roman}
+
+\title{Sample document}
+\author{Santiago Vázquez Sáez}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+	Esto es mi resumen (abstracto?). Probando, probando, \ldots
+\end{abstract}
+
+\tableofcontents
+\cleardoublepage
+
+%%%%% MAIN MATTER %%%%%
+\pagenumbering{arabic}
+
+\chapter{Introduction and Lorem Ipsum}
+
+Hello World!
+This is a sample {\LaTeX} document. The main goal of this document is to test and showcase different document settings and styles.
+
+\blindtext
+\begin{definition}{The exponential}{exp}
+	We define the exponential function $\exp (x)=e^x$ as
+	\[
+		\exp(x) = 1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\dots
+	\]
+\end{definition}
+\begin{theorem}{Euler's formula}{eform}
+	It is true that $e^{i\pi}+1=0$
+\end{theorem}
+
+Theorem \ref{th:eform} is considered by many to be one of the most beautiful results in mathematics.
+\newpage
+This is a new page. Look at the headers!!!! Anyway, next!
+\newpage
+Actually, let's start a new section!
+
+\chapter{The new chapter}
+Done! Now what?
+\end{document}
