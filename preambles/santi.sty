@@ -1,19 +1,37 @@
 \ProvidesPackage{santi}
 
+%%%%% OPTIONS %%%%%
+\newcommand{\fonttype}{\rmdefault}
+\DeclareOption{roman}{}
+\DeclareOption{sans-serif}{\renewcommand{\fonttype}{\sfdefault}}
+
+\newcommand{\pagesize}{a4paper}
+\DeclareOption{a4paper}{}
+ % Good size for tablets according to wikibooks.
+\DeclareOption{tablet}{\renewcommand{\pagesize}{paperwidth=441pt, paperheight=666pt}}
+
+\newcommand{\lang}{UKenglish}
+\DeclareOption{en}{}
+\DeclareOption{es}{\renewcommand{\lang}{spanish}}
+
+\DeclareOption*{\PackageWarning{examplepackage}{Unknown ‘\CurrentOption’}}
+\ProcessOptions\relax
+
+
 %%%%% SOME PACKAGES %%%%%
 \usepackage{enumitem} % Useful options for itemize and customizing lists (e.g. 'noitemsep' or 'align=...')
 \usepackage[hidelinks]{hyperref} % Include links. hidelinks to hide annoying red border around them.
 \usepackage[dvipsnames]{xcolor} % Get some more color names.
 \usepackage{mathtools}
 
+
 %%%%% FONT %%%%%
 \usepackage[T1]{fontenc} % Set font (output) encoding for tildes, etc.
-\renewcommand{\familydefault}{\rmdefault} % Set default font type: \rmdefault for roman (default) and \sfdefault for sans-serif
+\renewcommand{\familydefault}{\fonttype} % Set default font type: \rmdefault for roman (default) and \sfdefault for sans-serif
 
 
 %%%%% PAGE LAYOUT %%%%%
-\usepackage[a4paper]{geometry} % Set page size. May not work as expected without pdflatex.
-% \usepackage[paperwidth=441pt, paperheight=666pt]{geometry} % Good size for tablets according to wikibooks.
+\usepackage[\pagesize]{geometry} % Set page size. May not work as expected without pdflatex.
 
 
 %%%%% HEADERS/FOOTERS %%%%%
@@ -29,7 +47,7 @@
 
 %%%%% LANGUAGE %%%%%
 \def\spanishoptions{spain}
-\usepackage[UKenglish]{babel} % Use spanish or UKenglish as needed.
+\usepackage[\lang]{babel} % Use spanish or UKenglish as needed.
 
 
 %%%%% MATH/THEOREMS %%%%%
