@@ -1,0 +1,21 @@
+\documentclass{article}
+\providecommand{\myvar}{}
+\newcommand{\setvar}[1]{
+	\renewcommand{\myvar}{#1}
+}
+
+\newcommand{\setnvar}[2]{
+	\providecommand{\myvar#1}{}
+	% \renewcommand{\myvar#1}{#2}
+}
+
+\begin{document}
+        hello
+	\setvar{hi }
+	\myvar
+	Hello hello \myvar hello
+
+	\setvar{hola }
+	Hello \myvar hello
+	\setnvar{A}{test}
+\end{document}
