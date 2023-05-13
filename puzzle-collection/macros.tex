@@ -1,8 +1,8 @@
 \usepackage{environ}
 \usepackage{ifthen}
 \usepackage{etoolbox}
-\usepackage{pgffor}
-% \usepackage{expl3}
+\usepackage{tikz} % foreach and pgfmathrandomitem
+\usepackage{amsthm}
 
 \newcounter{problem}\setcounter{problem}{0}
 \newcounter{hint}\setcounter{hint}{0}
@@ -31,10 +31,8 @@
 			}
 			{
 				Hints
-				\foreach \x in {\the\numexpr #1,...,\the\numexpr #2 - 2}{
-					\ref{hint:\x},
-				}
-				\ref{hint:\the\numexpr #2-1} and \ref{hint:#2}.
+				\foreach \x in {\the\numexpr #1,...,\the\numexpr #2 - 2}{\ref{hint:\x},
+				}\ref{hint:\the\numexpr #2-1} and \ref{hint:#2}.
 			}
 		}
 	}
@@ -61,4 +59,67 @@
 	\stepcounter{hint}
 	\stepcounter{problemhint}
 	\expandafter\xdef\csname statehint\thehint\endcsname{\unexpanded\expandafter{\BODY}}
+}
+
+
+
+\newtheorem{st}{Problem}
+\newcommand{\placestatements}{
+	\foreach \p in {1,...,\theproblem}{
+		\begin{st}
+		        \state\p
+			\hintref\p
+		\end{st}
+	}
+}
+
+\newtheorem{so}{Solution}
+\newcommand{\placesolutions}{
+	\foreach \p in {1,...,\theproblem}{
+		\begin{so}
+		        \solve\p
+		\end{so}
+	}
+}
+
+
+
+
+
+% Hint randomiser
+\makeatletter% Taken from https://tex.stackexchange.com/q/109619/5764
+\def\declarenumlist#1#2#3{%
+  \expandafter\edef\csname pgfmath@randomlist@#1\endcsname{#3}%
+  \count@\@ne
+  \loop
+    \expandafter\edef
+    \csname pgfmath@randomlist@#1@\the\count@\endcsname
+      {\the\count@}
+    \ifnum\count@<#3\relax
+    \advance\count@\@ne
+  \repeat}
+\def\prunelist#1{%
+  \expandafter\xdef\csname pgfmath@randomlist@#1\endcsname
+          {\the\numexpr\csname pgfmath@randomlist@#1\endcsname-1\relax}
+  \count@\pgfmath@randomtemp 
+  \loop
+    \expandafter\global\expandafter\let
+    \csname pgfmath@randomlist@#1@\the\count@\expandafter\endcsname
+    \csname pgfmath@randomlist@#1@\the\numexpr\count@+1\relax\endcsname
+    \ifnum\count@<\csname pgfmath@randomlist@#1\endcsname\relax
+      \advance\count@\@ne
+  \repeat}
+\makeatother
+
+
+
+\newcommand{\randomplacehints}{
+	\declarenumlist{hintlist}{1}{\thehint}
+	\begin{enumerate}
+		\foreach \x in {1,...,\thehint}{
+			\pgfmathrandomitem\h{hintlist}
+			\item\label{hint:\h} \statehint{\h}
+			\prunelist{hintlist} % I have no idea how this knows what to prune lol
+		}
+	\end{enumerate} 
 }

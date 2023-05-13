@@ -5,7 +5,6 @@
 
 
 \begin{document}
-\section{Problems}
 \begin{problem}
 	\begin{statement}
 	        This is statement A.
@@ -31,34 +30,26 @@
 	\begin{statement}
 	        This is statement B.
 	\end{statement}
-	% \begin{hint}
-	%         This is hint B1.
-	% \end{hint}
-	% \begin{hint}
-	% 	This is hint B2.
-	% \end{hint}
+	\begin{hint}
+	        This is hint B1.
+	\end{hint}
+	\begin{hint}
+		This is hint B2.
+	\end{hint}
 	\begin{solution}
 	        This is solution B.
 	\end{solution}
 \end{problem}
 
-\begin{enumerate}
-	\item \state{1} \hintref{1}
-	\item \state{2} \hintref{2}
-\end{enumerate}
 
+
+\section{Problems}
+\placestatements
 
 \section{Hints}
-\begin{enumerate}
-	\foreach \n in {1,...,\thehint}{
-		\item\label{hint:\n} \statehint{\n}
-	}
-\end{enumerate}
-
+\randomplacehints
 
 \section{Solutions}
-\solve{1}
-\solve{2}
-
+\placesolutions
 
 \end{document}
