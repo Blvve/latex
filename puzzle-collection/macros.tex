@@ -1,0 +1,64 @@
+\usepackage{environ}
+\usepackage{ifthen}
+\usepackage{etoolbox}
+\usepackage{pgffor}
+% \usepackage{expl3}
+
+\newcounter{problem}\setcounter{problem}{0}
+\newcounter{hint}\setcounter{hint}{0}
+\newcounter{problemhint}[problem]
+
+
+
+
+\newenvironment{problem}{
+	\stepcounter{problem}
+}{% Define \hintrefN
+	\numdef\h{\thehint - \theproblemhint + 1}
+	\numdef\H{\thehint}
+	\expandafter\xdef\csname hintref\theproblem\endcsname{
+		\noexpand\hintrefinterval{\h}{\H} %Defined below
+	}
+}
+\newcommand{\hintrefinterval}[2]{% Shit for the hint references. Deals with the ands , the commas, etc.
+	\ifnumequal{#2 - #1}{-1}{}{
+		\ifnumequal{#2 - #1}{0}{
+			Hint \ref{hint:#1}.
+		}
+		{
+			\ifnumequal{#2 - #1}{1}{
+				Hints \ref{hint:#1} and \ref{hint:#2}.
+			}
+			{
+				Hints
+				\foreach \x in {\the\numexpr #1,...,\the\numexpr #2 - 2}{
+					\ref{hint:\x},
+				}
+				\ref{hint:\the\numexpr #2-1} and \ref{hint:#2}.
+			}
+		}
+	}
+}
+
+
+
+% Save environment contents to a macro. To access the details of the Nth problem, do:
+% \state{N}
+% \solve{N}
+% \statehint{m}, ..., \statehint{M}
+% The hints are indexed differently because a problem might have several hints.
+% Use \hintref{N} to reference all the hints of problem N.
+
+\newcommand{\state}[1]{\csname state#1\endcsname}
+\NewEnviron{statement}{\expandafter\xdef\csname state\theproblem\endcsname{\unexpanded\expandafter{\BODY}}}
+
+\newcommand{\solve}[1]{\csname solve#1\endcsname}
+\NewEnviron{solution}{\expandafter\xdef\csname solve\theproblem\endcsname{\unexpanded\expandafter{\BODY}}}
+
+\newcommand{\hintref}[1]{\csname hintref#1\endcsname}
+\newcommand{\statehint}[1]{\csname statehint#1\endcsname}
+\NewEnviron{hint}{
+	\stepcounter{hint}
+	\stepcounter{problemhint}
+	\expandafter\xdef\csname statehint\thehint\endcsname{\unexpanded\expandafter{\BODY}}
+}

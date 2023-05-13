@@ -1,9 +1,9 @@
 \documentclass[11pt]{article}
 
-\usepackage{etoolbox}
+% \usepackage{etoolbox}
 \usepackage{tikz}
 \usepackage{ifthen}
-\usepackage{answers}
+% \usepackage{answers}
 
 % Setup counters
 \newcounter{hindex}\setcounter{hindex}{0}
@@ -19,7 +19,7 @@
 	\item \csname hintlist#1\endcsname \label{hint:#1}
 }
 \newenvironment{hint}{\footnotesize \normalfont \textbf{Hints}:}{\hspace{-0.5ex}}
-\pgfmathsetseed{65536} % or any other number: sets the random seed
+\pgfmathsetseed{65736} % or any other number: sets the random seed
 
 \begin{document}
 
