@@ -1,11 +1,43 @@
 \begin{problem}
         \begin{statement}
-                Alice and Bob play a game over the natural numbers. Starting with 2, they alternate increasing this number by a quantity between 1 and 1000 (inclusive). If at the end of a turn, the number is composite, then the game ends, and the player who made the last move looses. Who has a winning strategy?
+		The number 2 is written on a whiteboard. Alice and Bob alternate adding an integer between 1 and 1000 inclusive, with the only condition that the result has to be a prime number. Whoever cannot complete their turn, looses. Who has the winning strategy?
         \end{statement}
-	\begin{hint}
-	        If Alice does not have a winning strategy, how would Bob start the game?
-	\end{hint}
 	\begin{solution}
-	        cannotbebotheredatthemoment
+	        Assume for a contradiction that Bob has a winning strategy.
+		This means that no matter what Alice does in her first turn, Bob can always reach a prime number that was inaccessible to Alice. But 1003 is not prime, so the above is not true if Alice starts by adding 1. Therefore Alice has a winning strategy.
 	\end{solution}
 \end{problem}
+
+
+\begin{problem}
+        \begin{statement}
+                Alice and Bob alternate placing coins on a round table. The coins are perfectly round, and they cannot overlap. Whoever cannot place a coin, looses. Who has a winning strategy?
+        \end{statement}
+	\begin{solution}
+	        Alice will play her first coin exactly at the centre of the table. After that, she will mirror Bob's play with respect to the centre of the table. Since after her turn the position is always symmetrical, she is guaranteed to be able to finish her turn. Therefore Alice has a winning strategy.
+	\end{solution}
+\end{problem}
+
+\begin{problem}
+        \begin{statement}
+                A group of $N$ number theorists are in a party. Each of them is wearing a party hat with a natural number from 1 to $N$ (possibly with repetition). They cannot see their own number, but they can see everyone else's. Once they have the hats on, no form of communication is allowed.
+
+		Now all of them simultaneously attempt to guess the number on their own hats. Show that they can agree on a strategy beforehand that guarantees that at least one of them gets it right.
+        \end{statement}
+	\begin{solution}
+	        The $i$th number theorist guesses their number assuming that the total sum of the hats is $i$ modulo $N$. Clearly exactly one of them will make a correct assumption, and thus their guess will be correct.
+	\end{solution}
+\end{problem}
+
+\begin{problem}
+        \begin{statement}
+                There is a gnome standing on each natural number looking in the positive direction. Each gnome is wearing a hat with a real number written on it. Each gnome can see the numbers on the infinitely many gnomes ahead of them, but cannot see their own number or the number of anyone behind them. All of them, simultaneously, attempt to guess their own number. Show that there is a strategy that guarantees that only finitely may of them get it wrong. (Extra challenge: suppose that the gnomes do not know what natural number they are on.)
+        \end{statement}
+	\begin{solution}
+		Let $S$ be the set of real sequences on the natural numbers. We define an equivalence relation on $S$ by $x\sim y$ if and only if $x$ and $y$ differ on  only finitely many points. For each equivalence class $\mathcal C$, we pick a representative $x_{\mathcal C}$.
+
+		Let $y\in S$ be the sequence of numbers on the hats. Each gnome sees all but finitely many hats and thus they are able to determine the equivalence class $\mathcal C$ of $y$. Each gnome now chooses their guess according to $x_{\mathcal C}$. Since $y\sim x_{\mathcal C}$, only finitely many gnomes will make an incorrect guess.
+	\end{solution}
+\end{problem}
+
+

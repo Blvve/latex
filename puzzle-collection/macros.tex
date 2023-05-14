@@ -62,13 +62,13 @@
 }
 
 
-
+\theoremstyle{definition}
 \newtheorem{st}{Problem}
 \newcommand{\placestatements}{
 	\foreach \p in {1,...,\theproblem}{
 		\begin{st}
 		        \state\p
-			\hintref\p
+			% \hintref\p
 		\end{st}
 	}
 }
